@@ -1,0 +1,18 @@
+**/bin/
+**/obj/
+.vs/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# OS / tooling
+Thumbs.db
+Desktop.ini
+
+# Git
+.git/
+
+# Logs
+**/*.log

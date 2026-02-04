@@ -1,0 +1,21 @@
+
+# .NET
+**/bin/
+**/obj/
+*.user
+*.suo
+*.cache
+*.log
+
+# Node / Angular
+frontend/node_modules/
+frontend/dist/
+npm-debug.log*
+yarn-error.log*
+
+# Docker
+*.env
+
+# OS
+.DS_Store
+Thumbs.db

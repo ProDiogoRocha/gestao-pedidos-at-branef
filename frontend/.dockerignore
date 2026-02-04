@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.angular/
+.cache/
+
+# OS / tooling
+Thumbs.db
+Desktop.ini
+
+# Git
+.git/
+
+# Logs
+**/*.log

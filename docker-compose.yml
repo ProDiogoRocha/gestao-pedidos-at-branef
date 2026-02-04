@@ -1,0 +1,49 @@
+
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: gestao-pedidos-at-branef-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Your_strong_password123!"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+    mem_limit: 2g
+
+  mongodb:
+    image: mongo:7
+    container_name: gestao-pedidos-at-branef-mongodb
+    ports:
+      - "27017:27017"
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: gestao-pedidos-at-branef-api:latest
+    container_name: gestao-pedidos-at-branef-api
+    environment:
+      ASPNETCORE_URLS: "http://+:8080"
+      ConnectionStrings__SqlServer: "Server=sqlserver,1433;Database=GestaoPedidos;User Id=sa;Password=Your_strong_password123!;TrustServerCertificate=True;"
+      Mongo__ConnectionString: "mongodb://mongodb:27017"
+      Mongo__Database: "gestao_pedidos"
+      FixedCustomer__Id: "11111111-1111-1111-1111-111111111111"
+    depends_on:
+      - sqlserver
+      - mongodb
+    ports:
+      - "8080:8080"
+
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: gestao-pedidos-at-branef-web:latest
+    container_name: gestao-pedidos-at-branef-web
+    depends_on:
+      - api
+    ports:
+      - "4200:80"
